@@ -1,0 +1,44 @@
+{"intents": [
+
+    {
+        "tag":"greetings",
+        "patterns": ["hello!", "hi", "Hi Jabba", "hey"],
+        "responses": ["Hello", "Hi", "What can I do for you?", "What do you need?"]
+    },
+    {
+        "tag":"exit",
+        "patterns": ["cya", "bye", "go away", "goodbye", "sleep"],
+        "responses": ["Have a good day.", "See you later!", "Goodbye"]
+    },
+    {
+        "tag":"about_jabba",
+        "patterns": ["what are you", "what's your name", "who are you", "introduce yourself"],
+        "responses": ["I'm Jabba, Cally's assistant bot.", "You can call me Jabba.", "I'm Jabba, an assistant bot created by Cally."]
+    },
+    {
+        "tag":"weather",
+        "patterns": ["weather", "what's the weather right now", "is it snowing", "is it raining", "is it sunny"],
+        "responses": [""]
+    },
+    {
+        "tag":"show_calendar",
+        "patterns": ["calendar", "what's on my calendar", "show me my calendar", "show calendar", "todo list", "what's on my todo list", "tasks for today?", "todo"],
+        "responses": [""]
+    },
+    {
+        "tag":"add_calendar",
+        "patterns": ["add to calendar", "add todo", "add a reminder", "add task"],
+        "responses": [""]
+    },
+    {
+        "tag":"email",
+        "patterns": ["send email", "email"],
+        "responses": [""]
+    },
+    {
+        "tag":"note",
+        "patterns": ["add a note", "note", "new note"],
+        "responses": [""]
+    }
+
+]}

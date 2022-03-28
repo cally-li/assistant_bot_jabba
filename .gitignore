@@ -1,0 +1,8 @@
+secrets.py
+venv/
+__pycache__/
+.vscode/
+credentials.json
+token.json
+.DS_Store
+..
