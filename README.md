@@ -1,1 +1,1 @@
-This is Jabba, an assistive chat bot built using the python machine learning framework PyTorch. He is trained to respond accurately based on my requests through the terminal and dutifully assists in helping me perform mundane tasks (sending emails, checking the weather, updating my Google Calendar).
+This is Jabba, an assistive chat bot built using the python machine learning framework PyTorch. He is trained to respond accurately to requests through the terminal and dutifully assists performing mundane tasks (sending emails, checking the weather, updating my Google Calendar).
