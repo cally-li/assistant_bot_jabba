@@ -3,7 +3,7 @@ import json
 import torch
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
-from utils import get_weather, send_email, open_notes, show_calendar, add_calendar
+from utils import get_weather, send_email, open_notes, show_calendar, add_calendar, google, music, maps
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -29,24 +29,19 @@ model.eval()
 
 # set up bot
 bot_name = 'Jabba'
-print("Jabba at your service! ('q' to quit)")
+print("Jabba at your service!")
 
 while True:
 
     sentence = input("You: ")
 
     exit_patterns = intents['intents'][1]['patterns']
-    for pattern in exit_patterns:
-        if sentence == pattern:
-            print(
-                f"{bot_name}: {random.choice(intents['intents'][1]['responses'])}")
-            sentence = 'q'
-            break
-
-    if sentence == 'q':
+    if sentence in exit_patterns:
+        print(
+            f"{bot_name}: {random.choice(intents['intents'][1]['responses'])}")
         break
 
-    # tokenize/ create bag of words for input senetence
+    # tokenize/ create bag of words for input sentence
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, all_words)  # returns np array
     # 1 row (1 sample), #columns = # tokenized items
@@ -79,6 +74,12 @@ while True:
                     show_calendar()
                 elif tag == 'add_calendar': #add to google cal
                     add_calendar()
+                elif tag == 'google': #google search
+                    google()
+                elif tag == 'maps': #look up location/directions on google maps
+                    maps()
+                elif tag == 'music': #spotify
+                    music()
                 else:
                     print(f"{bot_name}: {random.choice(intent['responses'])}")
     else:

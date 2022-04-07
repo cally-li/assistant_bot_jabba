@@ -5,6 +5,7 @@ import os
 import os.path
 import smtplib
 import ssl
+import webbrowser
 from email.message import EmailMessage
 from secrets import API_KEY, EMAIL_ADDRESS, EMAIL_PASSWORD
 
@@ -14,6 +15,10 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.events']
@@ -29,7 +34,7 @@ def get_weather():
         weather = data['weather'][0]['description']
         temp = round(data['main']['temp'] - 273.15, 1)
         feels_like = round(data['main']['feels_like'] - 273.15, 1)
-        print(f"Today's weather in {city} is >> {weather}, {temp} celsius but feels like {feels_like} celsius")
+        print(f"Today's weather in {city} is : {weather}, {temp} Celsius but feels like {feels_like} Celsius")
     else:
         print("Sorry, an error occurred.")
 
@@ -103,14 +108,17 @@ def show_calendar():
             print('No upcoming events found.')
             return
 
-        # Prints the start and name of the next 10 events
+        # Prints the next 10 events
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
-            formatted_datetime_obj= datetime.datetime.strptime(start,'%Y-%m-%dT%H:%M:%S-04:00').strftime('%Y-%m-%d %H:%M')
-            print(formatted_datetime_obj, event['summary'])
+            try:
+                formatted_datetime_obj= datetime.datetime.strptime(start,'%Y-%m-%dT%H:%M:%S-04:00').strftime('%Y-%m-%d %H:%M')
+                print(formatted_datetime_obj, event['summary'])
+            except: #for events with no time scheduled
+                print(start, event['summary'])
 
     except HttpError as error:
-        print('An error occurred: %s' % error)
+        print(f'An error occurred: {error}')
 
 
 
@@ -169,3 +177,59 @@ def add_calendar():
 
     except:
         print("Something went wrong. Please try to add your event again.")
+
+
+
+def google():
+    
+    search=input("What would you like to search for? ")
+
+    #selenium - set up web driver
+    s = Service('/Users/callyli/Documents/chromedriver')
+    driver = webdriver.Chrome(service=s)
+    url = 'https://www.google.ca/search?q=' + search
+
+    print(f'Googling "{search}"...')
+
+    try:  
+        driver.get(url)
+
+        print("Here are the top 5 results from your search... ")
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        linkdivs=soup.find_all('div', class_='yuRUbf')[:5] #find_all returns python list (first 5 elements)
+        for i, div in enumerate(linkdivs):
+            print(f"({i+1}) {div.find('a')['href']}")
+            
+    except Exception as e:
+        print(f"Sorry, an error occurred:{e}")
+
+
+def maps():
+    choice=input("Do you want to look up a location(l) or directions (d)? ")
+    # try:
+
+    if choice=='l':
+        location=input("What's the location/address you want to look up? ")
+        print(f"Searching for {location}...")
+        url="https://www.google.com/maps/search/?api=1&query=" + location
+        webbrowser.open(url, new=2)
+
+    elif choice=='d':
+        start=input("Input starting point: ")
+        destination=input("Input destination: ")
+        print(f"Retrieving directions from {start} to {destination}...")
+        url=f"https://www.google.com/maps/dir/?api=1&origin={start}&destination={destination}&travelmode=driving" 
+        webbrowser.open(url, new=2)
+
+def music():
+    print("Opening Spotify...")
+    
+    #open spotify desktop app
+    path = '/Applications/Spotify.app'
+    command = f'open {path}'
+    os.system(command)
+
+
+
+    

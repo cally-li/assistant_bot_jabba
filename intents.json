@@ -7,7 +7,7 @@
     },
     {
         "tag":"exit",
-        "patterns": ["cya", "bye", "go away", "goodbye", "sleep"],
+        "patterns": ["cya", "bye", "go away", "goodbye", "sleep", "quit", "q"],
         "responses": ["Have a good day.", "See you later!", "Goodbye"]
     },
     {
@@ -22,7 +22,7 @@
     },
     {
         "tag":"show_calendar",
-        "patterns": ["calendar", "what's on my calendar", "show me my calendar", "show calendar", "todo list", "what's on my todo list", "tasks for today?", "todo"],
+        "patterns": ["check calendar", "check my calendar", "calendar", "what's on my calendar", "show me my calendar", "show calendar", "todo list", "what's on my todo list", "tasks for today?", "todo", "events", "show my events", "show events", " what are my upcoming events"],
         "responses": [""]
     },
     {
@@ -39,6 +39,28 @@
         "tag":"note",
         "patterns": ["add a note", "note", "new note"],
         "responses": [""]
+    },
+    {
+        "tag":"google",
+        "patterns": ["google", "search", "search the web", "look up", "google search"],
+        "responses": [""]
+    },
+    {
+        "tag":"maps",
+        "patterns": ["get directions","map", "find location", "google maps", "find address", "look up location", "look up address", "look up directions", "find directions"],
+        "responses": [""]
+    },
+    {
+        "tag":"music",
+        "patterns": ["spotify", "play music", "play me a song", "sing", "I want to listen to some music", "play some tunes"],
+        "responses": [""]
+    },
+    {
+        "tag":"check_stock",
+        "patterns": ["check my stocks", "how are my stocks doing?", "show me my stocks", "sing", "I want to listen to some music", "play some tunes"],
+        "responses": [""]
     }
+    
+
 
 ]}
